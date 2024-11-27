@@ -35,7 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         {
             String token = authHeader.split(" ")[1];
 
-            if(jwtTokenUtils.validate(token))
+            if(jwtTokenUtils.validate(token) && jwtTokenUtils.isAccessToken(token))
             {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
 
