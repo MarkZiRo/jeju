@@ -13,14 +13,6 @@ java {
 	}
 }
 
-buildscript {
-	configurations.all {
-		resolutionStrategy {
-			force 'org.gradle.internal.jvm.Jvm:javaLauncher:21'
-		}
-	}
-}
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
