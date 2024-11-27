@@ -1,6 +1,7 @@
 package com.jeju.barrierfree.auth.config;
 
-import com.jeju.barrierfree.auth.jwt.JwtTokenUtils;
+import com.jeju.barrierfree.auth.jwt.*;
+import com.jeju.barrierfree.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -16,6 +18,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final JwtTokenUtils jwtTokenUtils;
+    private final UserService manager;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
@@ -42,9 +46,9 @@ public class WebSecurityConfig {
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-//                .addFilterBefore(
-//                        new JwtTokenFilter(jwtTokenUtils, manager), AuthorizationFilter.class
-//                )
+                .addFilterBefore(
+                        new JwtTokenFilter(jwtTokenUtils, manager), AuthorizationFilter.class
+                )
         ;
         return http.build();
     }

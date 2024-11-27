@@ -35,6 +35,13 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
     }
 
+    public UserEntity loadUserByEmail(String email) throws UsernameNotFoundException
+    {
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new UsernameNotFoundException("not found")
+        );
+    }
+
     public UserDto createUser(CreateUserDto dto)
     {
         if(userRepository.existsByEmail(dto.getEmail()))
@@ -46,6 +53,22 @@ public class UserService implements UserDetailsService {
                 .username(dto.getName())
                 .profileImage(dto.getProfileImage())
                 .build()));
+    }
+
+    public void createOAuth2User(UserDto dto)
+    {
+        UserEntity newUser = UserEntity.builder()
+                .email(dto.getEmail())
+                .profileImage(dto.getProfileImage())
+                .username(dto.getUsername())
+                .password(passwordEncoder.encode(dto.getPassword()))
+                .build();
+
+        UserDto.fromEntity(userRepository.save(newUser));
+    }
+
+    public boolean existsByEmail(String email){
+        return userRepository.existsByEmail(email);
     }
 
 }

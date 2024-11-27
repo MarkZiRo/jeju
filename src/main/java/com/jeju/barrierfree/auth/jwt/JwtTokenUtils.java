@@ -28,7 +28,7 @@ public class JwtTokenUtils {
     public String generateToken(UserEntity userDetails) {
         Instant now = Instant.now();
         Claims jwtClaims = Jwts.claims()
-                .setSubject(userDetails.getUsername())
+                .setSubject(userDetails.getEmail())
                 .setIssuedAt(Date.from(now))
                 .setExpiration(Date.from(now.plusSeconds(60 * 60 * 24L)));
 
