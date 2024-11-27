@@ -7,7 +7,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Value;
-import com.jeju.barrierfree.user.UserEntity;
+import com.jeju.barrierfree.user.entity.UserEntity;
 
 import java.security.Key;
 import java.time.Instant;

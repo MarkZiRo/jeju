@@ -1,4 +1,4 @@
-package com.jeju.barrierfree.user;
+package com.jeju.barrierfree.user.entity;
 
 
 import jakarta.persistence.*;
