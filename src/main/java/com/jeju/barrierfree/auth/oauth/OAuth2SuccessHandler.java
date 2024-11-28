@@ -61,7 +61,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String accessToken = tokenUtils.generateAccessToken(details);
         String refreshToken = tokenUtils.generateRefreshToken(details);
 
-        refreshTokenRepository.save(email, refreshToken);
+//        refreshTokenRepository.save(email, refreshToken);
 
         // 응답 데이터 생성
         JwtResponseDto responseDto = new JwtResponseDto();
